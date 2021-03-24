@@ -1,6 +1,7 @@
 require('dotenv').config();
 import path from 'path';
 import express from "express";
+import { Server } from "socket.io";
 import session, { MemoryStore } from "express-session";
 import bodyParser from "body-parser";
 import morgan from "morgan";
@@ -10,6 +11,8 @@ import adminRouter from "./routers/adminRouter";
 import { authAdmin, authUser, setLocals, setQueryString, setLocalsAdmin } from "./middlewares";
 
 
+/* Open socket server */
+const io = new Server({ path:"/test" });
 let RedisStore = require('connect-redis')(session)
 
 const app = express();
@@ -70,6 +73,13 @@ app.get("/", setLocals, setQueryString, (req, res) => {
     res.render("pages/home.pug");
 });
 app.get("/chat", setLocals, (req, res) => {
+    io.on("connection", (socket) => {
+        socket.volatile.emit("hi", { data: "data from server" }); // the client may or may not receive it
+        socket.on("msg", (socket) => {
+            socket.broadcast.emit("msg_recv", { msg: "Received!" });
+        });
+    });
+
     res.render("pages/chat.pug");
 });
 
