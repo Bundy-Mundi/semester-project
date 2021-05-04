@@ -1,40 +1,21 @@
 {
-  "name": "app",
+  "name": "semester-project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run prod:server",
-    "prod:css": "",
-    "prod:server": "node start build/index.js",
-    "dev": "npm run dev:css && npm run dev:server",
-    "dev:css": "postcss src/static/css/tailwind.css -o src/static/css/styles.css",
-    "dev:server": "nodemon --exec babel-node src/index.js"
+    "start": "",
+    "dev": ""
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bundy-Mundi/semester-project.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/node": "^7.12.6",
-    "@babel/preset-env": "^7.12.1",
-    "nodemon": "^2.0.6",
-    "postcss": "^8.2.1",
-    "postcss-cli": "^8.3.1"
+  "bugs": {
+    "url": "https://github.com/Bundy-Mundi/semester-project/issues"
   },
-  "dependencies": {
-    "@babel/cli": "^7.12.10",
-    "autoprefixer": "^10.1.0",
-    "body-parser": "^1.19.0",
-    "connect-redis": "^5.0.0",
-    "cookie-parser": "^1.4.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "helmet": "^4.2.0",
-    "morgan": "^1.10.0",
-    "pug": "^3.0.0",
-    "redis": "^3.0.2",
-    "socket.io": "^4.0.0",
-    "tailwindcss": "^2.0.2"
-  }
+  "homepage": "https://github.com/Bundy-Mundi/semester-project#readme"
 }
