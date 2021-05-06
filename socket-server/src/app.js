@@ -23,13 +23,9 @@ const SOCKET_OPTS = {
 const io = socketIo(server, SOCKET_OPTS); // < Interesting!
 
 import "./mongodb";
-import message from "./mongodb/message";
 
 io.on('connection', (socket) => {
     console.log("New client connected");
-    const id = new mongoose.Types.ObjectId(); // replace with mogodb
-    //const user = new User({username: "Test user"});
-    socket.emit("new id", { id });
     socket.on("send chat", async({sender, type, message, date}) => {
         // Add if there exists user
         let error = "";
@@ -45,9 +41,14 @@ io.on('connection', (socket) => {
         }
         socket.broadcast.emit("recieve chat", {sender, type, message, date, error});
     });
-    socket.on("new connection", (data) => {
-        console.log(data)
-        io.emit("notification", data);
+    socket.on("new connection", ({type, sender, date}) => {
+        console.log(type, sender, date)
+        let id = sender;
+        if(sender === null){
+            id = new mongoose.Types.ObjectId(); 
+        }
+        io.emit("new id", { id });
+        io.emit("notification", { type, sender:id, date });
     });
     socket.on("disconnect", () => {
         console.log("Client disconnected");
