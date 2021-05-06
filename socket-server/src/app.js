@@ -22,12 +22,13 @@ const io = socketIo(server, SOCKET_OPTS); // < Interesting!
 
 io.on('connection', (socket) => {
     console.log("New client connected");
-    const id = uuidv4();
+    const id = uuidv4(); // replace with mogodb
     socket.emit("new id", { id });
     socket.on("send chat", (data) => {
         socket.broadcast.emit("recieve chat", data)
     })
     socket.on("new connection", (data) => {
+        console.log(data)
         io.emit("notification", data)
     })
     socket.on("disconnect", () => {
