@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {SocketContext} from './socket';
+import {SocketContext} from '../socket';
 const MessageComponent = ({sender, message}) => {
     return (
         <li>
@@ -32,7 +32,6 @@ const Main = ({ socketID }) => {
         socket.on("notification", (data) => {
             setChat((chat) => [...chat, data]);
         })
-        console.log('FIRED')
     },[])
     const HandleSubmit = (e) => {
         e.preventDefault();
@@ -42,25 +41,28 @@ const Main = ({ socketID }) => {
             message,
             date: Date.now(),
          }
-         setChat((chat)=>[...chat, data]);
+        setChat((chat)=>[...chat, data]);
         socket.emit("send chat", data);
         setMessage("");
     }
     return (
         <main className="w-full bg-gray-100 h-screen flex items-center justify-center">
-            <div className="relative h-3/4 w-3/4 border border-black">
+            <div className="flex flex-col h-3/4 w-3/4 p-6 rounded shadow-2xl bg-gray-200">
+                <ul id="chat-display" class="h-full w-full overflow-y-scroll">
                 {
                     chat.map((v, k) => {
                         return (v.type === "notification") 
                             ? <NotificationComponent {...v} message="has joined" key={k}/> : <MessageComponent {...v}  key={k}/>
                     })
                 }
-            <form onSubmit={e => HandleSubmit(e)} className="p-1 h-10 w-full absolute bottom-0 flex items-center justify-center">
-                <input type="text" className="w-3/4 h-full" onChange={e => setMessage(e.target.value)} value={message}/>
-                <button type="submit">Send</button>
-            </form>
+                </ul>
+                <div className="h-20 w-full p-2">
+                    <form id="chat-input" onSubmit={e => HandleSubmit(e)} className="h-full flex items-center justify-center">
+                        <input type="text" className="w-full h-full p-1 text-left" onChange={e => setMessage(e.target.value)} value={message}/>
+                        <button type="submit" class="h-full w-16 bg-gray-300">Send</button>
+                    </form>
+                </div>
             </div>
-
         </main>
     )
 }
