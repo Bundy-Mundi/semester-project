@@ -7,6 +7,7 @@ const client_url = "http://localhost:3000";
 const index = require("./routes/index");
 import mongoose from "mongoose";
 import User from "./mongodb/user";
+import Message from "./mongodb/message";
 
 const app = express();
 app.use(index);
@@ -22,19 +23,32 @@ const SOCKET_OPTS = {
 const io = socketIo(server, SOCKET_OPTS); // < Interesting!
 
 import "./mongodb";
+import message from "./mongodb/message";
 
-io.on('connection', async(socket) => {
+io.on('connection', (socket) => {
     console.log("New client connected");
     const id = new mongoose.Types.ObjectId(); // replace with mogodb
     //const user = new User({username: "Test user"});
     socket.emit("new id", { id });
-    socket.on("send chat", (data) => {
-        socket.broadcast.emit("recieve chat", data)
-    })
+    socket.on("send chat", async({sender, type, message, date}) => {
+        // Add if there exists user
+        let error = "";
+        try{
+            await new Message({
+                sender,
+                type,
+                message,
+                date
+            }).save();
+        }catch(err){
+            error = err;
+        }
+        socket.broadcast.emit("recieve chat", {sender, type, message, date, error});
+    });
     socket.on("new connection", (data) => {
         console.log(data)
-        io.emit("notification", data)
-    })
+        io.emit("notification", data);
+    });
     socket.on("disconnect", () => {
         console.log("Client disconnected");
     });
