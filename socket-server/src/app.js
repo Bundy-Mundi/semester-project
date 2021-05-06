@@ -26,18 +26,7 @@ import "./mongodb";
 io.on('connection', async(socket) => {
     console.log("New client connected");
     const id = new mongoose.Types.ObjectId(); // replace with mogodb
-    const user = new User({username: "Test user"});
-    await user.save();
-    (async() => {
-        try{
-        const exists = await User.findById(user.id)
-        console.log(exists)
-        }catch(err){
-            console.log(err);
-        }
-        
-    })()
-    console.log(user)
+    //const user = new User({username: "Test user"});
     socket.emit("new id", { id });
     socket.on("send chat", (data) => {
         socket.broadcast.emit("recieve chat", data)
