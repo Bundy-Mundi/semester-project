@@ -7,32 +7,35 @@ import { SOCKET_URL } from "./config";
 
 function App() {
   const [socketID, setSocketID] = useState("");
+  const [username, setUsername] = useState("");
   useEffect(() => {
     const socket = socketIOClient(SOCKET_URL);
     const originalID = localStorage.getItem('socket-id');
+    const originalUsername = localStorage.getItem('username');
     const data = {
       type: "notification",
       sender: originalID,
       date: Date.now()
     }
-    if(!originalID) { // If there's no ID, sender is null => then server will give a new ID
-      data.sender = null;
+      if(!originalID) { // If there's no ID, sender is null => then server will give a new ID
+        data.sender = null;
+        socket.on("new id", ({ id: newID, username }) => {
+          localStorage.setItem("socket-id", newID);
+          setSocketID(newID);
+          setUsername(username);
+      });
     }
-    socket.emit("new connection", data)
-    socket.on("new id", ({ id: newID }) => {
-        localStorage.setItem("socket-id", newID);
-        setSocketID(newID);
-    });
+    socket.emit("new connection", data);
     setSocketID(originalID);
+    setUsername(originalUsername);
   },[]);
 
   return (
     <SocketContext.Provider value={socket}>
       <Header/>
-      <Main socket={socket} socketID={socketID}/>
+      <Main socketID={socketID} username={username}/>
     </SocketContext.Provider>
   );
 }
-
 
 export default App;
