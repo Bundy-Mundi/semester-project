@@ -11,6 +11,10 @@ const options = {
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     family: 4 // Use IPv4, skip trying IPv6
 };
+let mongo_url = process.env.MONGO_URL;
+
+if(process.env.NODE_ENV === "development")
+    mongo_url = "mongodb://localhost:27017/socket";
 
 (async()=>{
     mongoose.connection.on('connect', () => {
@@ -23,11 +27,10 @@ const options = {
         console.log("MongoDB disconnected.\n", err);
     });
     try{
-        await mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(mongo_url, {useNewUrlParser: true, useUnifiedTopology: true });
         console.log("MongoDB Connected");
     } catch (error) {
         console.log(error);
     }
 
-})()
-
+})();

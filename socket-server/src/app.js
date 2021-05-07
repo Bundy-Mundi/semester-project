@@ -1,15 +1,15 @@
 require('dotenv').config();
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-const port = process.env.PORT || 4001;
-const client_url = "http://localhost:3000";
-const index = require("./routes/index");
+import express = from("express");
+import http = from("http");
+import socketIo = from("socket.io");
+import index from "./routes/index";
 import mongoose from "mongoose";
 import User from "./mongodb/user";
 import Message from "./mongodb/message";
 
 let count = 1;
+const port = process.env.PORT || 4001;
+const client_url = process.env.CLIENT_URL || "http://localhost:3000";
 const app = express();
 app.use(index);
 
@@ -27,7 +27,7 @@ import "./mongodb";
 
 io.on('connection', (socket) => {
     console.log("New client connected");
-    socket.on("send chat", async({sender, type, message, date}) => {
+    socket.on("send chat", async({type, sender, message, date}) => {
         // Add if there exists user
         let error = "";
         let user = "";
@@ -66,11 +66,14 @@ io.on('connection', (socket) => {
             else
                 throw new Error("No such user with given ID");
         } catch (error) {
-            io.emit("notification", { type, sender:null, date, error });
+            console.log(error)
+            io.emit("notification", { type, username:null, date, error });
         }
     });
-    socket.on("disconnect", () => {
+    socket.on("disconnect", (socket) => {
         console.log("Client disconnected");
+        console.log(socket);
+        io.emit("notification", { type:"notification:left", username:null });
     });
 })
 
