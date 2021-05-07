@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Header = () => {
     return (
@@ -6,7 +6,7 @@ const Header = () => {
             <nav className="h-full w-full p-6">
                 <ul className="h-full items-center flex">
                     <li><a>Home</a></li>
-                    <li><a>Home</a></li>
+                    <li><a>Chat Log</a></li>
                 </ul>
             </nav>
         </header>
