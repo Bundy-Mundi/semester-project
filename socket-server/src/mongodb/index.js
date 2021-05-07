@@ -1,5 +1,5 @@
 require('dotenv').config();
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const options = {
     useNewUrlParser: true,
@@ -11,10 +11,9 @@ const options = {
     socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
     family: 4 // Use IPv4, skip trying IPv6
 };
-let mongo_url = process.env.MONGO_URL;
 
-if(process.env.NODE_ENV === "development")
-    mongo_url = "mongodb://localhost:27017/socket";
+let mongo_url = process.env.MONGO_URL;
+mongo_url = "mongodb://localhost:27017/socket";
 
 (async()=>{
     mongoose.connection.on('connect', () => {

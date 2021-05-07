@@ -1,7 +1,7 @@
 require('dotenv').config();
-import express = from("express");
-import http = from("http");
-import socketIo = from("socket.io");
+import express from "express";
+import http from "http";
+import socketIo from "socket.io";
 import index from "./routes/index";
 import mongoose from "mongoose";
 import User from "./mongodb/user";
@@ -69,6 +69,10 @@ io.on('connection', (socket) => {
             console.log(error)
             io.emit("notification", { type, username:null, date, error });
         }
+    });
+    socket.on('new username', async({id}) => {
+        const { username } = await User.findById(id);
+        io.emit('new username', {username});
     });
     socket.on("disconnect", (socket) => {
         console.log("Client disconnected");
