@@ -6,7 +6,6 @@ import index from "./routes/index";
 import User from "./mongodb/user";
 import Message from "./mongodb/message";
 
-let count = 1;
 const port = process.env.PORT || 4001;
 const client_url = process.env.CLIENT_URL || "http://localhost:3000";
 const app = express();
@@ -27,25 +26,37 @@ import "./mongodb";
 const chatRoute = io.of('/chat');
 chatRoute.on('connection', (socket) => {
     console.log("New client connected");
-    socket.on("new connection", ({type, message}) => {
-        io.emit("notification", {type, message})
+    socket.on("new connection", async({userID}) => {
+        const { username } = await User.findById(userID);
+        io.of("/chat").emit("notification", { type:"notification:joined", username, error:null })
     });
     socket.on("send chat", async(data) => {
         // Save messages in DB
         try{
             if(data.message){
-                await new Message(data).save();
-                user = await User.findById(sender);
-                io.emit("recieve chat", data);
+                const { id } = await new Message(data).save();
+                let message = await Message.findById(id).populate('sender');
+                io.of("/chat").emit("recieve chat", message);
             }
         }catch(err){
             console.log(err)
         }
     });
-    socket.on("disconnect", () => {
+
+    socket.on("disconnect", data => {
         console.log("Client disconnected");
-        io.emit("notification", { type:"notification:left" });
     });
-})
+    socket.on("custom disconnect", async({id}) => {
+        try {
+            console.log(id)
+            const { username } = await User.findById(id);
+            io.of("/chat").emit("notification", { type:"notification:left", error:null, username });
+        } catch (error) {
+            console.log(error);
+        }
+        
+        
+    });
+});
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

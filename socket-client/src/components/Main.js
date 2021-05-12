@@ -4,9 +4,10 @@ import { SocketContext } from "../socket";
 import useQuery from "../utils/useQuery";
 import ErrorMessage from "./ErrorMessage";
 
-const MessageComponent = ({username, message}) => {
-    console.log(username)
-    //{username ? username : "NULL"} : {message ? message : "NULL"}
+const MessageComponent = ({sender, message}) => {
+    let username = "Ananymous User";
+    if(sender)
+        username = sender.username;
     return (
         <li>
             <p>
@@ -46,7 +47,7 @@ const NotificationComponent = ({username, type}) => {
     )
 }
 
-const Main = ({ socketID, username }) => {
+const Main = () => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState(null);
     const [chat, setChat] = useState([]);
@@ -54,7 +55,7 @@ const Main = ({ socketID, username }) => {
     let query = useQuery();
     
     useEffect(() => {
-        async function fetchData(){
+        async function fetchUserCheck(){
             try{
                 const { data } = await axios.get(`/user/check?id=${query.get("id")}&username=${query.get("username")}`);
                 setError(data);
@@ -62,9 +63,11 @@ const Main = ({ socketID, username }) => {
                 console.log(error)
             }
         }
-        fetchData();
+        fetchUserCheck();
+
+        // Socket Config
+        socket.emit("new connection", {userID: query.get("id")});
         socket.on("recieve chat", (data) => {
-            console.log(data)
             if(data.error === null)
                 setChat((chat)=>[...chat, data]);
         })
@@ -73,11 +76,18 @@ const Main = ({ socketID, username }) => {
             if(data.error === null)
                 setChat((chat) => [...chat, data]);
         })
+        return () => {
+            socket.off("custom disconnect", { id:query.get('id') })
+        };
     },[])
     const HandleSubmit = (e) => {
         e.preventDefault();
-        socket.emit("send chat", { type:"message", message });
-        setChat((chat)=>[...chat, { type:"message", message }]);
+        socket.emit("send chat", {
+            type:"message",
+            sender: query.get("id"),
+            error:null,
+            message
+        });
         setMessage("");
     }
     if(error !== null)
@@ -90,11 +100,12 @@ const Main = ({ socketID, username }) => {
                 <ul id="chat-display" class="h-full w-full overflow-y-scroll">
                 {
                     chat.map((v, k) => {
+                        console.log(v)
                         if(v.type==="notification:joined") 
                             return <NotificationComponent {...v} key={k}/>
                         else if(v.type==="notification:left")
-                            return <NotificationComponent type={v.type} username={username} key={k}/>
-                        else 
+                            return <NotificationComponent {...v} key={k}/>
+                        else if(v.type==="message")
                             return <MessageComponent {...v}  key={k}/>
                     })
                 }

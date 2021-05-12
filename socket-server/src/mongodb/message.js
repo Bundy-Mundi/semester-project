@@ -3,8 +3,12 @@ const { Schema } = mongoose;
 
 const messageSchema = new Schema({
     type: String,
+    error: String,
     message: String,
-    sender: { type: mongoose.Types.ObjectId },
+    sender: { 
+      type: mongoose.Types.ObjectId,
+      ref: 'User'
+     },
     date: { type: Date, default: Date.now }
   });
 

@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   username: String,
-  message_logs:[{type:mongoose.Types.ObjectId}]
+  message_logs:[{type:mongoose.Types.ObjectId, ref:'Message'}]
 });
 
 userSchema.static('createUser', async function ({username}) {
