@@ -11,7 +11,6 @@ const messageSchema = new Schema({
      },
     date: { type: Date, default: Date.now }
   });
-
 messageSchema.static('createMessage', async function (data) {
   try {
     return await new this(data).save();
