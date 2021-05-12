@@ -5,7 +5,7 @@ import User from "../mongodb/user";
 import bodyParser from "body-parser"
 
 router.use(cors());
-router.use(bodyParser.urlencoded());
+router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 router.get("/", (req, res) => {
   res.send({ response: "I am alive" }).status(200);

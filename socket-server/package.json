@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run node index.js",
+    "start": "node build/app.js",
     "build": "babel src -d build",
+    "prod:server": "npm run build && npm start",
     "dev:server": "nodemon --exec babel-node src/app.js"
   },
   "author": "",
@@ -19,6 +20,7 @@
   },
   "dependencies": {
     "@babel/cli": "^7.12.10",
+    "@babel/polyfill": "^7.12.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
