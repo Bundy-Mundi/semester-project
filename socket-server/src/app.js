@@ -34,8 +34,8 @@ chatRoute.on('connection', (socket) => {
         // Save messages in DB
         try{
             if(data.message){
-                const { id } = await new Message(data).save();
-                let message = await Message.findById(id).populate('sender');
+                const { id } = await Message.createMessage(data);
+                let message = await Message.findMessage(id);
                 io.of("/chat").emit("recieve chat", message);
             }
         }catch(err){
@@ -54,8 +54,6 @@ chatRoute.on('connection', (socket) => {
         } catch (error) {
             console.log(error);
         }
-        
-        
     });
 });
 
