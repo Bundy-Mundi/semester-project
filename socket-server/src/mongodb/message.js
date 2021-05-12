@@ -7,5 +7,9 @@ const messageSchema = new Schema({
     sender: { type: mongoose.Types.ObjectId },
     date: { type: Date, default: Date.now }
   });
+
+messageSchema.static('createMessage', async function (msg) {
+
+});
 export default mongoose.model("Message", messageSchema);
   

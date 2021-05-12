@@ -3,7 +3,6 @@ import express from "express";
 import http from "http";
 import socketIo from "socket.io";
 import index from "./routes/index";
-import mongoose from "mongoose";
 import User from "./mongodb/user";
 import Message from "./mongodb/message";
 
@@ -25,59 +24,27 @@ const io = socketIo(server, SOCKET_OPTS); // < Interesting!
 
 import "./mongodb";
 
-io.on('connection', (socket) => {
+const chatRoute = io.of('/chat');
+chatRoute.on('connection', (socket) => {
     console.log("New client connected");
-    socket.on("send chat", async({type, sender, message, date}) => {
-        // Add if there exists user
-        let error = "";
-        let user = "";
+    socket.on("new connection", ({type, message}) => {
+        io.emit("notification", {type, message})
+    });
+    socket.on("send chat", async(data) => {
+        // Save messages in DB
         try{
-            if(message){
-                await new Message({
-                    sender,
-                    type,
-                    message,
-                    date
-                }).save();
+            if(data.message){
+                await new Message(data).save();
                 user = await User.findById(sender);
+                io.emit("recieve chat", data);
             }
         }catch(err){
-            error = err;
-        }
-        socket.broadcast.emit("recieve chat", {username: user.username ? user.username : null, type, message, date, error});
-    });
-    socket.on("new connection", async({ type, sender, date }) => {
-        console.log(type, sender, date);
-        const RANDOM_USERNAME = `RANDOM ${count}`;
-        let id = sender;
-        let user = {};
-        try {
-            if(!mongoose.isValidObjectId(sender))
-                throw new Error("You sent an invalid ID")
-            if(sender === null){ // if sender id is null, then create and save new User data with random name
-                user = await new User({username:RANDOM_USERNAME}).save();
-                io.emit("new id", { id: user.id, username:user.username });
-                count++;
-            } else {
-                user = await User.findById(id);
-            }
-            if(user)
-                io.emit("notification", { type, username:user.username, date, error: null });
-            else
-                throw new Error("No such user with given ID");
-        } catch (error) {
-            console.log(error)
-            io.emit("notification", { type, username:null, date, error });
+            console.log(err)
         }
     });
-    socket.on('new username', async({id}) => {
-        const { username } = await User.findById(id);
-        io.emit('new username', {username});
-    });
-    socket.on("disconnect", (socket) => {
+    socket.on("disconnect", () => {
         console.log("Client disconnected");
-        console.log(socket);
-        io.emit("notification", { type:"notification:left", username:null });
+        io.emit("notification", { type:"notification:left" });
     });
 })
 

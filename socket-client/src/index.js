@@ -1,10 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./Home";
+import Chat from './Chat';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+    <Header/>
+    <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <Route path="/chat">
+        <Chat />
+      </Route>
+    </Switch>
+    </Router>
+
   </React.StrictMode>,
   document.getElementById('root')
 );
