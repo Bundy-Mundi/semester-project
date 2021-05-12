@@ -42,7 +42,6 @@ chatRoute.on('connection', (socket) => {
             console.log(err)
         }
     });
-
     socket.on("disconnect", data => {
         console.log("Client disconnected");
     });
