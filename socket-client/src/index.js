@@ -6,8 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 import Header from "./components/Header";
-import Home from "./Home";
-import Chat from './Chat';
+import Home from "./Routes/Home/Home";
+import Chat from './Routes/Chat/Chat';
 
 ReactDOM.render(
   <React.StrictMode>

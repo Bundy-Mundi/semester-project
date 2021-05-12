@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import config from "../../config";
 
-const REQUEST_URL = "http://localhost:4001";
 const Home = () => {
     const [ authState, setAuthState ] = useState("signup");
     const [ username, setUsername ] = useState("");
@@ -11,10 +11,9 @@ const Home = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        let url = REQUEST_URL + "/user/new";
+        let url = config.SERVER_URL + "/user/new";
         if(authState === 'login')
-            url = REQUEST_URL + "/user/login";
-
+            url = config.SERVER_URL + "/user/login";
         try{
             const { data:{ error, user } } = await axios.post(url, { username });
             if(user)

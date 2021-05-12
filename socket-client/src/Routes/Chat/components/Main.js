@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { SocketContext } from "../socket";
-import useQuery from "../utils/useQuery";
+import { SocketContext } from "../../../socket";
+import useQuery from "../../../utils/useQuery";
 import ErrorMessage from "./ErrorMessage";
 
 const MessageComponent = ({sender, message}) => {
