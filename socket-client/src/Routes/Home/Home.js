@@ -45,15 +45,15 @@ const Home = () => {
                         <input id="username" className="transition-all focus:shadow-lg w-full h-12 p-2 rounded" onChange={e => setUsername(e.target.value)} placeholder="Type Username" value={username}></input>
                         <button className="transition-all hover:bg-gray-700 hover:text-white hover:shadow-lg xl:text-lg 2xl:text-lg border border-gray-900 rounded w-full h-12 p-2" type="submit">Submit</button>
                         <div className="w-1/2 flex items-center justify-between">
-                            <a className={`${authState === 'signup' ? "font-bold": ""} xl:text-base 2xl:text-base cursor-pointer text-center text-xs text-gray-900`} onClick={() => {
+                            <p className={`${authState === 'signup' ? "font-bold": ""} xl:text-base 2xl:text-base cursor-pointer text-center text-xs text-gray-900`} onClick={() => {
                                 setAuthState('signup');
                                 setErrorMsg("");
-                            }}>Sign Up</a>
+                            }}>Sign Up</p>
                             |
-                            <a className={`${authState === 'login' ? "font-bold": ""} xl:text-base 2xl:text-base cursor-pointer text-center text-xs text-gray-900`} onClick={() => {
+                            <p className={`${authState === 'login' ? "font-bold": ""} xl:text-base 2xl:text-base cursor-pointer text-center text-xs text-gray-900`} onClick={() => {
                                 setAuthState('login');
                                 setErrorMsg("");
-                            }}>Login</a>
+                            }}>Login</p>
                         </div>
                     </div>
                 </form>
