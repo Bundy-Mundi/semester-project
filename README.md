@@ -1,6 +1,18 @@
 # semester-project
 CS 81 semester project assignment
 
+## Production To Do
+
+- [ ] Organize Environment variables
+
+- [ ] Update package.json  
+    - [ ] Backend Commands
+        - [ ] npm run dev
+        - [ ] npm start
+    - [ ] Frontend Commands
+        - [ ] ...
+        - [ ] ...
+
 ## Stacks
 
 - Frontend: React, Tailwind CSS
