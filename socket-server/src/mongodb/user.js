@@ -13,8 +13,12 @@ userSchema.static('createUser', async function ({username, address}) {
     message: null
   }
   try {
-    const exists = await this.findOne({ username });
-    if(exists)
+    username = username.trim().replace(' ', ''); // remove whitespace for username
+    const addressExists = await this.findOne({ address });
+    const userExists = await this.findOne({ username });
+    if(addressExists)
+      throw new Error("The public IP address is already taken over by someone else 😥");
+    if(userExists)
       throw new Error("Username already exists");
     const newUser = await new this({ username, address }).save();
     return { error: errorObj, user:newUser };

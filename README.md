@@ -1,5 +1,17 @@
-# semester-project
-CS 81 semester project assignment
+# semester-project (Take over your network)
+
+- This is an assignment for SMC CS 81  semester project.
+
+## Features
+
+- One account for each public IP. Go and takeover some public IPs by typing unique username.
+
+- You can jump into the chatroom just with your username, no password is needed.
+
+- Currently, there is only one chat room.
+
+- You can only use the username again only with the same public IP address that you first used to create the account. IP address will be saved into DB.
+
 
 ## Production To Do
 
@@ -17,7 +29,7 @@ CS 81 semester project assignment
 
 - Frontend: React, Tailwind CSS
 
-- Backend: Node js (socket.io)
+- Backend: Express, Socket.IO
 
 - DB: Mongo DB
 
