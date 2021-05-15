@@ -27,7 +27,6 @@ import "./mongodb";
 const chatRoute = io.of('/chat');
 chatRoute.on('connection', (socket) => {
     console.log("New client connected");
-    const clientIP = socket.handshake.address;
     socket.on("new connection", async({userID}) => {
         const { username } = await User.findById(userID);
         io.of("/chat").emit("notification", { type:"notification:joined", username, error:null })

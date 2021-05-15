@@ -1,5 +1,5 @@
 import React from "react";
-import { socket, SocketContext } from './socket';
+import { socket, SocketContext } from "../../socket";
 import Main from "./components/Main";
 
 function Chat() {

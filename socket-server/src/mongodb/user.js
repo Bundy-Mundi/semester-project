@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  username: String,
+  username: { type: String, required: true },
+  address: { type: String, required: true },
   message_logs:[{type:mongoose.Types.ObjectId, ref:'Message'}]
 });
 
-userSchema.static('createUser', async function ({username}) {
+userSchema.static('createUser', async function ({username, address}) {
   let errorObj = {
     ok: true,
     message: null
@@ -15,7 +16,7 @@ userSchema.static('createUser', async function ({username}) {
     const exists = await this.findOne({ username });
     if(exists)
       throw new Error("Username already exists");
-    const newUser = await new this({ username }).save();
+    const newUser = await new this({ username, address }).save();
     return { error: errorObj, user:newUser };
   } catch (error) {
     errorObj.ok = false;
@@ -23,7 +24,7 @@ userSchema.static('createUser', async function ({username}) {
     return { error: errorObj, user:null };
   }
 });
-userSchema.static('login', async function ({username}) {
+userSchema.static('login', async function ({username, address}) {
   let errorObj = {
     ok: true,
     message: null
@@ -32,6 +33,8 @@ userSchema.static('login', async function ({username}) {
     const user = await this.findOne({ username });
     if(!user)
       throw new Error("Username does not exists");
+    if(address !== user.address)
+      throw new Error("You use the same IP address that you used when you first logged in.")
     return { error: errorObj, user };
   } catch (error) {
     errorObj.ok = false;
@@ -47,10 +50,12 @@ userSchema.static('userMatch', async function ({id, username}) {
   try {
     if(!mongoose.Types.ObjectId.isValid(id))
       throw new Error("Invalid ID provided");
-    const {id: firstID} = await this.findById(id);
-    const {id: secondID} = await this.findOne({ username });
+    const {id: firstID, address: firstIP} = await this.findById(id);
+    const {id: secondID, address: secondIP} = await this.findOne({ username });
     if(firstID !== secondID)
       throw new Error("Username and ID does not match");
+    if(firstIP !== secondIP)
+      throw new Error("IP Address does not match");
   } catch (error) {
     errorObj.ok = false;
     errorObj.message = error.message;

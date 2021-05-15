@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import config from "../../config";
+import publicIP from "public-ip";
 
 const Home = () => {
     const [ authState, setAuthState ] = useState("signup");
@@ -11,11 +12,13 @@ const Home = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        let address = "";
         let url = config.SERVER_URL + "/user/new";
         if(authState === 'login')
             url = config.SERVER_URL + "/user/login";
         try{
-            const { data:{ error, user } } = await axios.post(url, { username });
+            address = await publicIP.v4();
+            const { data:{ error, user } } = await axios.post(url, { username, address });
             if(user)
                 console.log("ID:", user._id);
             if(error)
