@@ -35,22 +35,22 @@ const Home = () => {
     }
 
     return(
-            <div className="h-screen w-full flex items-center justify-center ">
-                <form className="flex items-center justify-center flex flex-col h-1/2 w-1/3 p-6 rounded shadow-2xl bg-gray-200" onSubmit={e => handleSubmit(e)}>
-                    <span id="text-box" className="h-2/3">
-                        <p className="text-center w-full text-2xl">{authState === 'login'? "Login": "Sign Up"}</p>
+            <div className="h-screen w-full flex items-center justify-center">
+                <form className="flex items-center justify-evenly flex flex-col h-1/2 w-4/5 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/3 p-6 rounded shadow-2xl bg-gray-200" onSubmit={e => handleSubmit(e)}>
+                    <span id="text-box" className="h-auto flex flex-col items-center">
+                        <p className="text-center w-full text-2xl xl:text-3xl 2xl:text-3xl">{authState === 'login'? "Login": "Sign Up"}</p>
                         <p className="text-red-600">{ errorMsg }</p>
                     </span>
-                    <div className="h-full flex flex-col items-center justify-between">
-                        <input id="username" className="w-full h-12 p-2 rounded" onChange={e => setUsername(e.target.value)} placeholder="Type Username" value={username}></input>
-                        <button className="border border-gray-900 rounded w-full h-12 p-2" type="submit">Submit</button>
+                    <div className="h-1/2 w-full xl:w-3/4 2xl:w-3/4 flex flex-col items-center justify-evenly">
+                        <input id="username" className="transition-all focus:shadow-lg w-full h-12 p-2 rounded" onChange={e => setUsername(e.target.value)} placeholder="Type Username" value={username}></input>
+                        <button className="transition-all hover:bg-gray-700 hover:text-white hover:shadow-lg xl:text-lg 2xl:text-lg border border-gray-900 rounded w-full h-12 p-2" type="submit">Submit</button>
                         <div className="w-1/2 flex items-center justify-between">
-                            <a className="cursor-pointer text-center text-xs text-gray-900" onClick={() => {
+                            <a className={`${authState === 'signup' ? "font-bold": ""} xl:text-base 2xl:text-base cursor-pointer text-center text-xs text-gray-900`} onClick={() => {
                                 setAuthState('signup');
                                 setErrorMsg("");
                             }}>Sign Up</a>
                             |
-                            <a className="cursor-pointer text-center text-xs text-gray-900" onClick={() => {
+                            <a className={`${authState === 'login' ? "font-bold": ""} xl:text-base 2xl:text-base cursor-pointer text-center text-xs text-gray-900`} onClick={() => {
                                 setAuthState('login');
                                 setErrorMsg("");
                             }}>Login</a>
