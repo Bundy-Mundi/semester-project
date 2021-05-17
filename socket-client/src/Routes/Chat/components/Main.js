@@ -60,19 +60,20 @@ const Main = () => {
                 const { data } = await axios.get(`/user/check?id=${query.get("id")}&username=${query.get("username")}`);
                 setError(data);
             } catch(error){
-                console.log(error)
+                console.log(error);
             }
         }
         fetchUserCheck();
 
         // Socket Config
-        socket.emit("new connection", {userID: query.get("id")});
+        if(error === null){
+            socket.emit("new connection", {userID: query.get("id")});
+        }
         socket.on("recieve chat", (data) => {
             if(data.error === null)
                 setChat((chat)=>[...chat, data]);
         })
         socket.on("notification", (data) => {
-            console.log(data)
             if(data.error === null)
                 setChat((chat) => [...chat, data]);
         })

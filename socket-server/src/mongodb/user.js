@@ -18,7 +18,7 @@ userSchema.static('createUser', async function ({username, address}) {
       const addressExists = await this.findOne({ address });
       const userExists = await this.findOne({ username });
       if(addressExists)
-        throw new Error(`The public IP address ${address} is already taken over by someone else 😥`);
+        throw new Error(`The public IP address ${address} is already taken over by someone else 😥 If you are the one who took it over, try 'login'`);
       if(userExists)
         throw new Error("Username already exists");
       const newUser = await new this({ username, address }).save();
@@ -56,14 +56,15 @@ userSchema.static('userMatch', async function ({id, username}) {
     message: null
   }
   try {
-    if(!mongoose.Types.ObjectId.isValid(id))
+    if(!mongoose.Types.ObjectId.isValid(id)){
       throw new Error("Invalid ID provided");
-    const {id: firstID, address: firstIP} = await this.findById(id);
-    const {id: secondID, address: secondIP} = await this.findOne({ username });
-    if(firstID !== secondID)
-      throw new Error("Username and ID does not match");
-    if(firstIP !== secondIP)
-      throw new Error("IP Address does not match");
+    }
+      const {id: firstID, address: firstIP} = await this.findById(id);
+      const {id: secondID, address: secondIP} = await this.findOne({ username });
+      if(firstID !== secondID)
+        throw new Error("Username and ID does not match");
+      if(firstIP !== secondIP)
+        throw new Error("IP Address does not match");
   } catch (error) {
     errorObj.ok = false;
     errorObj.message = error.message;
