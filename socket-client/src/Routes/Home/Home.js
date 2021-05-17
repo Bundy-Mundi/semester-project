@@ -42,7 +42,7 @@ const Home = () => {
                         <p className="text-red-600">{ errorMsg }</p>
                     </span>
                     <div className="h-1/2 w-full xl:w-3/4 2xl:w-3/4 flex flex-col items-center justify-evenly">
-                        <input id="username" className="transition-all focus:shadow-lg w-full h-12 p-2 rounded" onChange={e => setUsername(e.target.value)} placeholder="Type Username" value={username}></input>
+                        <input required id="username" className="transition-all focus:shadow-lg w-full h-12 p-2 rounded" onChange={e => setUsername(e.target.value)} placeholder="Type Username" value={username}></input>
                         <button className="transition-all hover:bg-gray-700 hover:text-white hover:shadow-lg xl:text-lg 2xl:text-lg border border-gray-900 rounded w-full h-12 p-2" type="submit">Submit</button>
                         <div className="w-1/2 flex items-center justify-between">
                             <p className={`${authState === 'signup' ? "font-bold": ""} xl:text-base 2xl:text-base cursor-pointer text-center text-xs text-gray-900`} onClick={() => {
