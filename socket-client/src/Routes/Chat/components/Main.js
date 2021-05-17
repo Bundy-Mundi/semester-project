@@ -59,20 +59,22 @@ const Main = () => {
             try{
                 const { data } = await axios.get(`/user/check?id=${query.get("id")}&username=${query.get("username")}`);
                 setError(data);
+
             } catch(error){
-                console.log(error)
+                console.log(error);
             }
         }
         fetchUserCheck();
 
         // Socket Config
-        socket.emit("new connection", {userID: query.get("id")});
+        if(error === null){
+            socket.emit("new connection", {userID: query.get("id")});
+        }
         socket.on("recieve chat", (data) => {
             if(data.error === null)
                 setChat((chat)=>[...chat, data]);
         })
         socket.on("notification", (data) => {
-            console.log(data)
             if(data.error === null)
                 setChat((chat) => [...chat, data]);
         })
@@ -90,22 +92,23 @@ const Main = () => {
         });
         setMessage("");
     }
-    if(error !== null)
+    if(error !== null){
         if(!error.ok)
             return <ErrorMessage message={error.message}/>;
+    }
     return (
         
         <main className="w-full bg-gray-100 h-screen flex items-center justify-center">
+            
             <div className="flex flex-col h-3/4 w-3/4 p-6 rounded shadow-2xl bg-gray-200">
                 <ul id="chat-display" class="h-full w-full overflow-y-scroll">
                 {
                     chat.map((v, k) => {
-                        console.log(v)
                         if(v.type==="notification:joined") 
                             return <NotificationComponent {...v} key={k}/>
                         else if(v.type==="notification:left")
                             return <NotificationComponent {...v} key={k}/>
-                        else if(v.type==="message")
+                        else
                             return <MessageComponent {...v}  key={k}/>
                     })
                 }

@@ -1,10 +1,12 @@
-# semester-project (Take over your network)
+# semester-project (Dominate networks)
 
 - This is an assignment for SMC CS 81  semester project.
 
 ## Features
 
-- One account for each public IP. Go and takeover some public IPs by typing unique username.
+- One account for each public IP. Go and takeover some public IPs by typing **unique username.**
+
+- Each IP address will have its own unique restriction to create unique username. Try to be creative and satisfy its restriction to take over the network!
 
 - You can jump into the chatroom just with your username, no password is needed.
 

@@ -6,6 +6,7 @@ import socketIo from "socket.io";
 import index from "./routes/index";
 import User from "./mongodb/user";
 import Message from "./mongodb/message";
+import mongoose from "mongoose";
 
 const port = process.env.PORT || 4001;
 const client_url = process.env.CLIENT_URL || "http://localhost:3000";
@@ -28,8 +29,10 @@ const chatRoute = io.of('/chat');
 chatRoute.on('connection', (socket) => {
     console.log("New client connected");
     socket.on("new connection", async({userID}) => {
-        const { username } = await User.findById(userID);
-        io.of("/chat").emit("notification", { type:"notification:joined", username, error:null })
+        if(mongoose.Types.ObjectId.isValid(userID)){
+            const { username } = await User.findById(userID);
+            io.of("/chat").emit("notification", { type:"notification:joined", username, error:null });
+        }
     });
     socket.on("send chat", async(data) => {
         // Save messages in DB

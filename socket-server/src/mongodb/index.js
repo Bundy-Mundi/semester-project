@@ -29,6 +29,7 @@ mongo_url = "mongodb://localhost:27017/socket";
         await mongoose.connect(mongo_url, {useNewUrlParser: true, useUnifiedTopology: true });
         console.log("MongoDB Connected");
     } catch (error) {
+        console.log("There's been some problem while connecting to MongoDB");
         console.log(error);
     }
 
