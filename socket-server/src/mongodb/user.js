@@ -13,8 +13,8 @@ userSchema.static('createUser', async function ({username, address}) {
     message: null
   }
   try {
-    username = username.trim().replace(' ', ''); // remove whitespace for username
-    if(username){
+    username = this.cleanString(username); // remove whitespace for username
+    if(username && address){
       const addressExists = await this.findOne({ address });
       const userExists = await this.findOne({ username });
       if(addressExists)
@@ -24,7 +24,7 @@ userSchema.static('createUser', async function ({username, address}) {
       const newUser = await new this({ username, address }).save();
       return { error: errorObj, user:newUser };
     } else {
-      throw new Error("Empty username is given. Try it again.")
+      throw new Error("Check your input.")
     }
   } catch (error) {
     errorObj.ok = false;
@@ -38,12 +38,17 @@ userSchema.static('login', async function ({username, address}) {
     message: null
   }
   try {
-    const user = await this.findOne({ username });
-    if(!user)
-      throw new Error("Username does not exists");
-    if(address !== user.address)
-      throw new Error("You use the same IP address that you used when you first logged in.")
-    return { error: errorObj, user };
+    username = this.cleanString(username);
+    if(username && address){
+      const user = await this.findOne({ username });
+      if(!user)
+        throw new Error("Username does not exists");
+      if(address !== user.address)
+        throw new Error("You use the same IP address that you used when you first logged in.")
+      return { error: errorObj, user };
+    } else {
+      throw new Error("Check your input.");
+    }
   } catch (error) {
     errorObj.ok = false;
     errorObj.message = error.message;
@@ -56,20 +61,35 @@ userSchema.static('userMatch', async function ({id, username}) {
     message: null
   }
   try {
-    if(!mongoose.Types.ObjectId.isValid(id)){
-      throw new Error("Invalid ID provided");
-    }
-      const {id: firstID, address: firstIP} = await this.findById(id);
-      const {id: secondID, address: secondIP} = await this.findOne({ username });
-      if(firstID !== secondID)
-        throw new Error("Username and ID does not match");
-      if(firstIP !== secondIP)
-        throw new Error("IP Address does not match");
+      if(!mongoose.Types.ObjectId.isValid(id)){
+        throw new Error("Invalid ID provided");
+      }
+
+      username = this.cleanString(username);
+      if(username && id){
+        const byID = await this.findById(id);
+        const byUsername= await this.findOne({ username });
+        if(byID && byUsername){
+          const {id: firstID, address: firstIP} = byID;
+          const {id: secondID, address: secondIP} = byUsername;
+          if(firstID !== secondID)
+            throw new Error("Username and ID does not match");
+          if(firstIP !== secondIP)
+            throw new Error("IP Address does not match");
+        } else {
+          throw new Error("Incorrect user ID or username")
+        }
+      } else {
+        throw new Error("Check your input.")
+      }
   } catch (error) {
     errorObj.ok = false;
     errorObj.message = error.message;
   }
   return errorObj;
+});
+userSchema.static('cleanString', function(string){
+  return string.trim().replace(' ', '');
 });
 
 export default mongoose.model("User", userSchema);

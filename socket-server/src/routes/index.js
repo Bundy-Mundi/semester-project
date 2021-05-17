@@ -18,7 +18,6 @@ router.post("/user/new", async(req, res) => {
 router.post("/user/login", async(req, res) => {
   const { body:{ username, address } } = req;
   const user = await User.login({username, address});
-  console.log(user.username, " logged in")
   res.json(user);
 });
 router.get("/user/check", async(req, res) => {
