@@ -14,23 +14,10 @@ const options = {
 
 let mongo_url = process.env.MONGO_URL;
 mongo_url = "mongodb://localhost:27017/socket";
-
-(async()=>{
-    mongoose.connection.on('connect', () => {
-        console.log("MongoDB connected!");
-    });
-    mongoose.connection.on('error', err => {
-        console.log(err);
-    });
-    mongoose.connection.on('disconnected', (err) => {
-        console.log("MongoDB disconnected.\n", err);
-    });
-    try{
-        await mongoose.connect(mongo_url, {useNewUrlParser: true, useUnifiedTopology: true });
-        console.log("MongoDB Connected");
-    } catch (error) {
-        console.log("There's been some problem while connecting to MongoDB");
-        console.log(error);
-    }
-
+(async() => {
+    mongoose.connection.on('connected', () => console.log("MongoDB connected!"));
+    mongoose.connection.on('error', err => console.log(err));
+    mongoose.connection.on('disconnected', (err) => console.log("MongoDB disconnected.", err));
+    mongoose.connect(mongo_url, {useNewUrlParser: true, useUnifiedTopology: true });
 })();
+
