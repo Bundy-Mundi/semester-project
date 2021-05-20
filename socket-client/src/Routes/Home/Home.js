@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import config from "../../config";
 import publicIP from "public-ip";
+
 const Home = () => {
     const [ authState, setAuthState ] = useState("signup");
     const [ username, setUsername ] = useState("");
     const [ user, setUser ] = useState(null);
     const [ errorMsg, setErrorMsg ] = useState("");
     const [ address, setAddress ] = useState("");
-    (async ()=>{
-        setAddress(await publicIP.v4());
-    })();
+    
+    useEffect(() => {
+        publicIP.v4()
+            .then(res => setAddress(res))
+            .catch(err => console.log(err))
+    },[])
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -19,18 +23,18 @@ const Home = () => {
         if(authState === 'login')
             url = config.SERVER_URL + "/user/login";
         try{
-            const { data:{ error, user } } = await axios.post(url, { username, address });
-            if(user)
-                console.log("ID:", user._id);
-            if(error)
-                setErrorMsg(error.message);
+            const res = await axios.post(url, { username, address }, {credentials:'include', withCredentials: true, proxy: true});
+            if(res.data.user){
+                setUser(res.data.user);
+            }
+            if(!res.data.error.ok){
+                setErrorMsg(res.data.error.message);
+            }
             setUsername("");
-            setUser(user);
         } catch(err){
             console.log(err)
         }
     }
-
     if(user){
         return <Redirect to={`/chat?id=${user._id}&username=${user.username}`}/>
     }

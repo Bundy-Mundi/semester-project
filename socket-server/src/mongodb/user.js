@@ -52,7 +52,7 @@ userSchema.static('login', async function ({username, address}) {
   } catch (error) {
     errorObj.ok = false;
     errorObj.message = error.message;
-    return { error: errorObj, user:null };
+    return { error: errorObj, user: null };
   }
 });
 userSchema.static('userMatch', async function ({id, username}) {
