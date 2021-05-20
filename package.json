@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Bundy-Mundi/semester-project/issues"
   },
-  "homepage": "https://github.com/Bundy-Mundi/semester-project#readme"
+  "homepage": "https://github.com/Bundy-Mundi/semester-project#readme",
+  "dependencies": {
+    "express-session": "^1.17.2"
+  }
 }
