@@ -9,20 +9,26 @@ import index from "./routes/index";
 import User from "./mongodb/user";
 import Message from "./mongodb/message";
 import mongoose from "mongoose";
+import MongoStore from "connect-mongo";
 
 const port = process.env.PORT || 4001;
 const client_url = process.env.CLIENT_URL || "http://localhost:3000";
 const app = express();
+const dev_mongo_url = "mongodb://localhost:27017/socket";
+const MONGOSTORE_OPT = {
+    mongoUrl: dev_mongo_url
+};
 const SESSION_OPT = {
     secret: 'secret',
     resave: false,
-    saveUninitialized: true
-  };
+    saveUninitialized: true,
+    store: MongoStore.create(MONGOSTORE_OPT)
+};
 const CORS_OPT = {
     origin: client_url,
     credentials: true,
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
+};
 var sessionMiddleware = session(SESSION_OPT);
 app.use(cors(CORS_OPT));
 app.use(sessionMiddleware);
