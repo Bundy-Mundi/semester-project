@@ -5,5 +5,11 @@ const apiRouter = express.Router();
 apiRouter.get('/', (req, res) => {
     res.send("API HOME");
 });
+apiRouter.post('/', (req, res) => {
+    const { body } = req;
+    if(body){
+        
+    }
+});
 
 export default apiRouter;
