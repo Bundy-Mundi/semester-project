@@ -1,0 +1,8 @@
+#main-image{
+    height: 70%;
+    width: 100%;
+    background: #ffffff;
+    background-image: url("../../img/main.jpg");
+    background-position: center;
+    background-size: cover;
+}

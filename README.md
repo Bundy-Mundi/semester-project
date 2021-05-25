@@ -1,40 +1,25 @@
-# semester-project (Dominate networks)
+# Node js application blueprint with both server & client 
 
-- This is an assignment for SMC CS 81  semester project.
+## Installation
 
-## Features
+```bash
 
-- One account for each public IP. Go and takeover some public IPs by typing **unique username.**
+git clone https://github.com/Bundy-Mundi/node-app.git
 
-- Each IP address will have its own unique restriction to create unique username. Try to be creative and satisfy its restriction to take over the network!
+cd node-app
 
-- You can jump into the chatroom just with your username, no password is needed.
+npm install
 
-- Currently, there is only one chat room.
+npm run dev # This will run the server and compile tailwind css automatically
 
-- You can only use the username again only with the same public IP address that you first used to create the account. IP address will be saved into DB.
+```
+
+- For the most of the time, you might just want to run 
+
+```bash
+
+npm run dev:server
+
+```
 
 
-## Production To Do
-
-- [ ] Organize Environment variables
-
-- [ ] Update package.json  
-    - [ ] Backend Commands
-        - [ ] npm run dev
-        - [ ] npm start
-    - [ ] Frontend Commands
-        - [ ] ...
-        - [ ] ...
-
-## Stacks
-
-- Frontend: React, Tailwind CSS
-
-- Backend: Express, Socket.IO
-
-- DB: Mongo DB
-
-## Contribution
-
-- I would appreciate any kind of pull requests especially that can improve its UI / UX design as a chat application.

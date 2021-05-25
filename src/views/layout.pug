@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include partials/head.pug
+        title #{siteName} | #{pageTitle || "Unknown Page"}
+    body
+        include partials/header.pug
+        main 
+            .error-message
+                if loginFailed
+                    p You are seeing this message because login has failed. Try it again.
+            #container
+                block content
+        
+        include partials/footer.pug
+
+        block scripts
+            script(src='/static/js/modal.js')
