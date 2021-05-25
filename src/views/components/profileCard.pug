@@ -1,0 +1,15 @@
+mixin profileCard(name, bio, phone, email)
+    .rounded.rounded-t-lg.overflow-hidden.shadow.max-w-xs.my-3
+        img.w-full.h-48.bg-gray-200(src='')
+        .flex.justify-center.-mt-8
+            img.rounded-full.border-solid.border-white.border-2.-mt-3(src='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=753&q=80')
+        .text-center.px-3.pb-6.pt-2
+            h3.text-black.text-sm.bold.font-sans #{name}
+            p.mt-2.font-sans.font-light.text-grey-dark #{bio}
+        .flex.justify-center.pb-3.text-grey-dark
+            .text-center.mr-3.border-r.pr-3
+                h2 Phone
+                span #{phone}
+            .text-center
+                h2 Email
+                span #{email}

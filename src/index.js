@@ -58,9 +58,9 @@ app.get("/cv", setLocals, (req, res) => {
     res.locals.pageTitle = "CV";
     res.render("pages/cv.pug");
 });
-app.get("/contact", setLocals, (req, res) => {
-    res.locals.pageTitle = "Contact";
-    res.render("pages/contact.pug");
+app.get("/about", setLocals, (req, res) => {
+    res.locals.pageTitle = "About";
+    res.render("pages/about.pug");
 });
 app.use('/api/v1', apiRouter);
 app.use('/error', errorRouter);
