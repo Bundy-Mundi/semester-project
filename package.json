@@ -9,7 +9,7 @@
     "prod:server": "node build/index.js",
     "build":"npm run build:assets && npm run build:server",
     "build:server": "babel src -d build",
-    "build:assests": "npm run build:css-tailwind",
+    "build:assets": "npm run build:css-tailwind",
     "build:css-tailwind": "postcss src/static/css/tailwind.css -o build/static/css/styles.css",
     "build:css-custom": "",
     "dev": "npm run dev:css && npm run dev:server",
