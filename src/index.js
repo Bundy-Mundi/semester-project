@@ -19,9 +19,22 @@ const IS_PROD = (NODE_ENV === 'production');
 
 // Needs to replaced by Redis or Mongo
 const DB = [
-    { id: 1, name: "Ben", email:"ben@gmail.com", password: "1234", isAdmin: false},
-    { id: 2, name: "Bennie", email:"bennie@gmail.com", password: "1234", isAdmin: false},
-    { id: 3, name: "master", email:"master@gmail.com", password: "1234", isAdmin: true},
+    { 
+        id: 1, 
+        firstName: "Ben", 
+        lastName:"Kweon", 
+        email:"ben@gmail.com",
+        img_url:"",
+        bio:"" 
+    },
+    { 
+        id: 2, 
+        firstName: "Nancy", 
+        lastName:"Anatuanya", 
+        email:"nchidiafoma@gmail.com",
+        img_url:"",
+        bio:""
+    },
 ]
 
 /* Pug setup */
@@ -41,12 +54,16 @@ app.get("/", setLocals, setQueryString, (req, res) => {
     res.locals.pageTitle = "Home";
     res.render("pages/home.pug");
 });
+app.get("/cv", setLocals, (req, res) => {
+    res.locals.pageTitle = "CV";
+    res.render("pages/cv.pug");
+});
 app.get("/contact", setLocals, (req, res) => {
     res.locals.pageTitle = "Contact";
     res.render("pages/contact.pug");
 });
-app.use('/api/v1',apiRouter);
-app.use('/error',errorRouter);
+app.use('/api/v1', apiRouter);
+app.use('/error', errorRouter);
 
 /* Server */
 app.listen(port, () => console.log(`\nListening On: http://localhost:${port}\n\nMode: ${NODE_ENV}`));
