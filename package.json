@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run prod:server",
-    "prod:css": "",
     "prod:server": "node build/index.js",
     "build":"npm run build:assets && npm run build:server",
     "build:server": "babel src -d build",
-    "build:assets": "npm run build:css-tailwind",
+    "build:assets": "npm run build:css-tailwind && npm run build:images",
     "build:css-tailwind": "postcss src/static/css/tailwind.css -o build/static/css/styles.css",
     "build:css-custom": "",
+    "build:images": "cp -r src/static/img build/static/",
     "dev": "npm run dev:css && npm run dev:server",
     "dev:server": "nodemon --exec babel-node src/index.js",
     "dev:css": "postcss src/static/css/tailwind.css -o src/static/css/styles.css"
