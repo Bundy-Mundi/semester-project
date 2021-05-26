@@ -7,6 +7,7 @@ import helmet from "helmet";
 import apiRouter from "./routers/apiRouter";
 import errorRouter from './routers/errorRouter';
 import { setLocals, setQueryString, redirectToStart } from "./middlewares";
+import { DB } from "./db";
 
 const app = express();
 const {
@@ -18,24 +19,6 @@ const port = PORT || 5000;
 const IS_PROD = (NODE_ENV === 'production');
 
 // Needs to replaced by Redis or Mongo
-const DB = [
-    { 
-        id: 1, 
-        firstName: "Ben", 
-        lastName:"Kweon", 
-        email:"ben@gmail.com",
-        img_url:"",
-        bio:"" 
-    },
-    { 
-        id: 2, 
-        firstName: "Nancy", 
-        lastName:"Anatuanya", 
-        email:"nchidiafoma@gmail.com",
-        img_url:"",
-        bio:""
-    },
-]
 
 /* Pug setup */
 app.set('views', './src/views')
@@ -60,7 +43,7 @@ app.get("/", setLocals, setQueryString, (req, res) => {
 });
 app.get("/cv", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "CV";
-    res.render("pages/cv.pug");
+    res.render("pages/cv.pug", { data: DB });
 });
 app.get("/about", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "About";
