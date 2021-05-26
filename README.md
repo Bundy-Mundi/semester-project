@@ -1,25 +1,41 @@
-# Node js application blueprint with both server & client 
+# Semester Project for SMC CS 81 Course
+
+## Todo List
+
+- [ ] Complete readme
+- [ ] Put more animation
+## Team member
+
+- Ben Kweon
+
+- Nancy 
 
 ## Installation
 
 ```bash
-
-git clone https://github.com/Bundy-Mundi/node-app.git
-
-cd node-app
+git clone <URL>
 
 npm install
 
-npm run dev # This will run the server and compile tailwind css automatically
-
+npm run dev # For dev mode -> this will create tailwind style sheets too
 ```
 
-- For the most of the time, you might just want to run 
+- [Live Example](https://test-semester-project.herokuapp.com/)
+## Project purpose
 
-```bash
+- A website that displays our profiles.
 
-npm run dev:server
+## Used Stacks
 
-```
+- Node JS
 
+- Pug
 
+- Tailwind CSS
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+## Part
+
+- Ben Kweon: Backend, Tailwind CSS
+  
+- Nancy Anatuanya: Frontend JS
