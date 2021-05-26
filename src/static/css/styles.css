@@ -31142,6 +31142,26 @@ video {
   }
 }
 
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 .animate-none {
   -webkit-animation: none;
           animation: none;
@@ -31165,6 +31185,16 @@ video {
 .animate-bounce {
   -webkit-animation: bounce 1s infinite;
           animation: bounce 1s infinite;
+}
+
+.animate-fade-in {
+  -webkit-animation: fadein 0.3s ease-in-out;
+          animation: fadein 0.3s ease-in-out;
+}
+
+.animate-fade-in-long {
+  -webkit-animation: fadein 0.8s ease-in-out;
+          animation: fadein 0.8s ease-in-out;
 }
 
 @media (min-width: 640px) {
@@ -61708,6 +61738,16 @@ video {
   .sm\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .sm\:animate-fade-in {
+    -webkit-animation: fadein 0.3s ease-in-out;
+            animation: fadein 0.3s ease-in-out;
+  }
+
+  .sm\:animate-fade-in-long {
+    -webkit-animation: fadein 0.8s ease-in-out;
+            animation: fadein 0.8s ease-in-out;
   }
 }
 
@@ -92253,6 +92293,16 @@ video {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .md\:animate-fade-in {
+    -webkit-animation: fadein 0.3s ease-in-out;
+            animation: fadein 0.3s ease-in-out;
+  }
+
+  .md\:animate-fade-in-long {
+    -webkit-animation: fadein 0.8s ease-in-out;
+            animation: fadein 0.8s ease-in-out;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -122796,6 +122846,16 @@ video {
   .lg\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .lg\:animate-fade-in {
+    -webkit-animation: fadein 0.3s ease-in-out;
+            animation: fadein 0.3s ease-in-out;
+  }
+
+  .lg\:animate-fade-in-long {
+    -webkit-animation: fadein 0.8s ease-in-out;
+            animation: fadein 0.8s ease-in-out;
   }
 }
 
@@ -153341,6 +153401,16 @@ video {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .xl\:animate-fade-in {
+    -webkit-animation: fadein 0.3s ease-in-out;
+            animation: fadein 0.3s ease-in-out;
+  }
+
+  .xl\:animate-fade-in-long {
+    -webkit-animation: fadein 0.8s ease-in-out;
+            animation: fadein 0.8s ease-in-out;
+  }
 }
 
 @media (min-width: 1536px) {
@@ -183884,5 +183954,15 @@ video {
   .\32xl\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .\32xl\:animate-fade-in {
+    -webkit-animation: fadein 0.3s ease-in-out;
+            animation: fadein 0.3s ease-in-out;
+  }
+
+  .\32xl\:animate-fade-in-long {
+    -webkit-animation: fadein 0.8s ease-in-out;
+            animation: fadein 0.8s ease-in-out;
   }
 }
