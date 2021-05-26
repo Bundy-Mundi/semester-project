@@ -2,8 +2,8 @@ header#header.sticky.top-0.w-full.bg-white.bg-opacity-95.shadow-md
     nav#nav
         ul#menu.flex.h-20.items-center.pl-6
             li(class="mr-4 text-lg font-semibold text-gray-400 hover:text-gray-600 transition-all")
-                a(href="/") home
+                a(href=`/?username=${username}`) home
             li(class="mr-4 text-lg font-semibold text-gray-400 hover:text-gray-600 transition-all")
-                a(href="/cv") cv
+                a(href=`/cv?username=${username}`) cv
             li(class="mr-4 text-lg font-semibold text-gray-400 hover:text-gray-600 transition-all")
-                a(href="/about") about
+                a(href=`/about?username=${username}`) about

@@ -6,7 +6,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import apiRouter from "./routers/apiRouter";
 import errorRouter from './routers/errorRouter';
-import { setLocals, setQueryString } from "./middlewares";
+import { setLocals, setQueryString, redirectToStart } from "./middlewares";
 
 const app = express();
 const {
@@ -49,16 +49,20 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
+
 /* Routers */
 app.get("/", setLocals, setQueryString, (req, res) => {
+    let template = "pages/start.pug";
     res.locals.pageTitle = "Home";
-    res.render("pages/home.pug");
+    if(res.locals.username)
+        template = "pages/home.pug";
+    res.render(template);
 });
-app.get("/cv", setLocals, (req, res) => {
+app.get("/cv", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "CV";
     res.render("pages/cv.pug");
 });
-app.get("/about", setLocals, (req, res) => {
+app.get("/about", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "About";
     res.render("pages/about.pug");
 });
