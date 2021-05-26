@@ -8,9 +8,9 @@ html(lang="en")
     body
         main.h-screen.w-full
             .greeting.h-64.w-full.flex.items-center.justify-center
-                h1.text-4xl.font-semibold Please give any username
+                h1.text-4xl.font-thin Please give any username
             .w-full.h-full.flex.items-start.justify-center
                 form(method="GET" action="/" class="w-72 h-64 lg:h-72 lg:w-1/2 flex items-center justify-center bg-gray-200 shadow-lg rounded")
                     .input_container.flex.flex-col.items-center.justify-center.w-full.px-6
-                        input(type="text" name="username" class="h-10 w-full lg:w-1/2 px-2 text-center" placeholder="Username")
-                        button(type="submit" class="h-10 w-full lg:w-1/2 hover:bg-gray-700 hover:text-white transition-all") OK
+                        input(type="text" name="username" class="mb-4 h-16 w-full lg:w-1/2 px-2 text-center rounded" placeholder="Username")
+                        button(type="submit" class="h-16 w-full lg:w-1/2 bg-gray-700 text-white border border-gray-600 hover:text-gray-900  hover:bg-transparent transition-all rounded") OK

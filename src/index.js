@@ -16,8 +16,7 @@ const {
 } = process.env;
 
 const port = PORT || 5000;
-const IS_PROD = (NODE_ENV === 'production');
-
+// const IS_PROD = (NODE_ENV === 'production');
 // Needs to replaced by Redis or Mongo
 
 /* Pug setup */
@@ -31,7 +30,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 app.use(helmet());
 app.use('/static', express.static(path.join(__dirname, 'static')));
-
 
 /* Routers */
 app.get("/", setLocals, setQueryString, (req, res) => {

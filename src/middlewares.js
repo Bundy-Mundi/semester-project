@@ -1,7 +1,9 @@
 require('dotenv').config();
 
 export const setLocals = (req, res, next) => {
-    res.locals.siteName = process.env.SITE_NAME || "Sample";
+    res.locals.siteName = process.env.SITE_NAME || "Semester Project";
+    let d = new Date().getFullYear();
+    res.locals.year = d;
     next();
 };
 
