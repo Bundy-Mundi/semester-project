@@ -33,10 +33,24 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 
 /* Routers */
 app.get("/", setLocals, setQueryString, (req, res) => {
-    let template = "pages/start.pug";
     res.locals.pageTitle = "Home";
-    if(res.locals.username)
+    
+    let template = "pages/start.pug";
+    let greeting = '';
+    const hour = new Date().getHours();
+
+    switch(hour){
+        case(hour >= 6 && hour <= 12):
+            greeting = 'Good Morning';
+        case(hour > 12 && hour < 18):
+            greeting = 'Good Afternoon';
+        default:
+            greeting = 'Good Evening';
+    }
+    if(res.locals.username){
+        res.locals.greeting = greeting;
         template = "pages/home.pug";
+    }
     res.render(template);
 });
 app.get("/cv", setLocals, setQueryString, redirectToStart, (req, res) => {
