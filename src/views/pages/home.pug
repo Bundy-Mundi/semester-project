@@ -1,5 +1,11 @@
 extends ../layout.pug
+include ../components/profileCard.pug
 
+
+    
 block content
-    .flex.items-center.justify-center.h-screen.w-full.animate-fade-in-long
+    .flex.flex-col.items-center.justify-center.h-screen.w-full.animate-fade-in-long
         h1#hello.text-3xl.font-thin #{greeting}, #{username}
+        .cards.mt-10.flex.flex-col.min-w-full.justify-center(class="lg:flex-row hover:animate-float")
+            each val in data
+                +profileCard(val.name, val.projects, val.bio, val.college, val.img_url)

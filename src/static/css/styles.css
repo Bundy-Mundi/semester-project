@@ -31162,6 +31162,26 @@ video {
   }
 }
 
+@-webkit-keyframes float {
+  0% {
+    transfrom: translate(0%);
+  }
+
+  100% {
+    transfrom: translate(-25%);
+  }
+}
+
+@keyframes float {
+  0% {
+    transfrom: translate(0%);
+  }
+
+  100% {
+    transfrom: translate(-25%);
+  }
+}
+
 .animate-none {
   -webkit-animation: none;
           animation: none;
@@ -31195,6 +31215,11 @@ video {
 .animate-fade-in-long {
   -webkit-animation: fadein 0.8s ease-in-out;
           animation: fadein 0.8s ease-in-out;
+}
+
+.animate-float {
+  -webkit-animation: ;
+          animation: ;
 }
 
 @media (min-width: 640px) {
@@ -61748,6 +61773,11 @@ video {
   .sm\:animate-fade-in-long {
     -webkit-animation: fadein 0.8s ease-in-out;
             animation: fadein 0.8s ease-in-out;
+  }
+
+  .sm\:animate-float {
+    -webkit-animation: ;
+            animation: ;
   }
 }
 
@@ -92303,6 +92333,11 @@ video {
     -webkit-animation: fadein 0.8s ease-in-out;
             animation: fadein 0.8s ease-in-out;
   }
+
+  .md\:animate-float {
+    -webkit-animation: ;
+            animation: ;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -122856,6 +122891,11 @@ video {
   .lg\:animate-fade-in-long {
     -webkit-animation: fadein 0.8s ease-in-out;
             animation: fadein 0.8s ease-in-out;
+  }
+
+  .lg\:animate-float {
+    -webkit-animation: ;
+            animation: ;
   }
 }
 
@@ -153411,6 +153451,11 @@ video {
     -webkit-animation: fadein 0.8s ease-in-out;
             animation: fadein 0.8s ease-in-out;
   }
+
+  .xl\:animate-float {
+    -webkit-animation: ;
+            animation: ;
+  }
 }
 
 @media (min-width: 1536px) {
@@ -183964,5 +184009,10 @@ video {
   .\32xl\:animate-fade-in-long {
     -webkit-animation: fadein 0.8s ease-in-out;
             animation: fadein 0.8s ease-in-out;
+  }
+
+  .\32xl\:animate-float {
+    -webkit-animation: ;
+            animation: ;
   }
 }

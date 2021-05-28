@@ -51,7 +51,7 @@ app.get("/", setLocals, setQueryString, (req, res) => {
         res.locals.greeting = greeting;
         template = "pages/home.pug";
     }
-    res.render(template);
+    res.render(template, { data: DB });
 });
 app.get("/cv", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "CV";
