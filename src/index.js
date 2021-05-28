@@ -35,6 +35,7 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 app.get("/", setLocals, setQueryString, (req, res) => {
     res.locals.pageTitle = "Home";
     
+    // By Nancy
     let template = "pages/start.pug";
     let greeting = '';
     const hour = new Date().getHours();
