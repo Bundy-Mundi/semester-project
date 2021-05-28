@@ -1,6 +1,6 @@
 mixin profileCard(name, projects, bio, college, img_url)
-    .rounded.rounded-t-lg.overflow-hidden.shadow.w-full.my-3(class="lg:w-80 lg:mx-3")
-        div.w-full.h-48.bg-gray-600(src='')
+    .rounded.rounded-t-lg.overflow-hidden.shadow.w-full.my-3.transition.cursor-pointer(class="lg:w-80 lg:mx-3 hover:transform hover:-translate-y-10")
+        div.w-full.h-48.bg-gray-600
         .flex.justify-center.-mt-8
             img(src=`${img_url}`).z-10.object-cover.h-20.w-20.overflow-hidden.rounded-full.border-solid.border-white.border-2.-mt-3
         .text-center.px-3.pb-6.pt-2
