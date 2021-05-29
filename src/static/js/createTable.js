@@ -1,3 +1,6 @@
+const TABLE = document.getElementById("table");
+console.log(TABLE);
+
 let CLASS_SCHEDULE = [{
     Week: 1,
     Begins: "03/08",
@@ -47,7 +50,7 @@ let CLASS_SCHEDULE = [{
     Begins: "05/31",
     Topics: ["No Assignment ", "  Test 2: Monday 12am (05/31) - Thursday 11:59pm(06/03)", " Please take this week to finish up your semester project as well ", " Semester Project due Saturday 11:59pm(06/05) "]
 }, {
-    Week: " ",
+    Week: 13,
     Begins: "06/06",
     Topics: ["SEMESTER ENDS!!!!!!!"]
 },
@@ -55,79 +58,101 @@ let CLASS_SCHEDULE = [{
 ];
 
 function buildTable(data) { //create function for table
-let table = document.createElement("table");
 
-let row = document.createElement("tr");
+    /* thead */
+    let table = document.createElement("table");
 
-let td1 = document.createElement("td");
-
-let weekCols = document.createTextNode("Week");
-
-let td2 = document.createElement("td");
-
-let beginCols = document.createTextNode("Begins");
-
-let td3 = document.createElement("td");
-
-let chpCols = document.createTextNode("Chapters/Topic[Eloquent Javascript 3rd Edition]");
-
-td1.appendChild(weekCols);
-
-td2.appendChild(beginCols);
-
-td3.appendChild(chpCols);
-
-row.appendChild(td1);
-
-row.appendChild(td2);
-
-row.appendChild(td3);
-
-table.appendChild(row);
-
-console.log(data);
-
-for (let i = 0; i < data.length; i++)
-
-{ //create row elements
     let row = document.createElement("tr");
 
-    let td1 = document.createElement("td");
+    let thead = document.createElement('thead');
 
-    let weekCols = document.createTextNode(data[i].Week);
+    let th1 = document.createElement("th");
 
-    let td2 = document.createElement("td");
+    let weekCols = document.createTextNode("Week");
 
-    let beginCols = document.createTextNode(data[i].Begins);
+    let th2 = document.createElement("th");
 
-    let td3 = document.createElement("td");
+    let beginCols = document.createTextNode("Begins");
 
-    for (let j = 0; j < data[i].Topics.length; j++) { //matching rows to columns
+    let th3 = document.createElement("th");
 
-        let br = document.createElement("br"); //break element to create paragraph
+    let chpCols = document.createTextNode("Chapters/Topic[Eloquent Javascript 3rd Edition]");
 
-        let chpCols = document.createTextNode(data[i].Topics[j]); //match row to corresponding column
+    // Styling
+    table.className = "mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden";
+    thead.className = "bg-gray-50";
+    row.className = "text-gray-600 text-left";
+    th1.className = "font-semibold text-sm uppercase px-6 py-4";
+    th2.className = "font-semibold text-sm uppercase px-6 py-4";
+    th3.className = "font-semibold text-sm uppercase px-6 py-4"; 
 
-        td3.appendChild(br);
+    th1.appendChild(weekCols);
 
-        td3.appendChild(chpCols);
+    th2.appendChild(beginCols);
 
-        td3.appendChild(br);
+    th3.appendChild(chpCols);
+
+    row.appendChild(th1);
+
+    row.appendChild(th2);
+
+    row.appendChild(th3);
+
+    thead.appendChild(row);
+
+    table.appendChild(thead);
+
+    /* tbody */ 
+    let tbody = document.createElement("tbody");
+
+    // Styling
+    tbody.className = "divide-y divide-gray-200";
+
+    for (let i = 0; i < data.length; i++)
+    { //create row elements
+        let row = document.createElement("tr");
+
+        let td1 = document.createElement("td");
+
+        let weekCols = document.createTextNode(data[i].Week);
+
+        let td2 = document.createElement("td");
+
+        let beginCols = document.createTextNode(data[i].Begins);
+
+        let td3 = document.createElement("td");
+
+        for (let j = 0; j < data[i].Topics.length; j++) { //matching rows to columns
+
+            let br = document.createElement("br"); //break element to create paragraph
+
+            let chpCols = document.createTextNode(data[i].Topics[j]); //match row to corresponding column
+
+            td3.appendChild(br);
+
+            td3.appendChild(chpCols);
+
+            td3.appendChild(br);
+        }
+
+        td1.appendChild(weekCols);
+
+        td2.appendChild(beginCols);
+
+        // Styling
+        td1.className = "px-6 py-4 font-thin text-sm";
+        td2.className = "px-6 py-4 font-thin text-sm";
+        td3.className = "px-6 py-4 font-thin text-sm"; 
+
+        row.appendChild(td1);
+
+        row.appendChild(td2);
+
+        row.appendChild(td3);
+
+        tbody.appendChild(row);
     }
-
-    td1.appendChild(weekCols);
-
-    td2.appendChild(beginCols);
-
-    row.appendChild(td1);
-
-    row.appendChild(td2);
-
-    row.appendChild(td3);
-
-    table.appendChild(row);
+    table.appendChild(tbody);
+    return table;
 }
-return table;
-
-}
-document.body.appendChild(buildTable(CLASS_SCHEDULE));
+TABLE.appendChild(buildTable(CLASS_SCHEDULE));

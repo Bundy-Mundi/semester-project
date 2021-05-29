@@ -56,11 +56,23 @@ app.get("/", setLocals, setQueryString, (req, res) => {
 });
 app.get("/cv/:id", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "CV";
-    res.render("pages/cv.pug", { data: DB });
+    let data = {};
+
+    if(req.params.id){
+        data = DB.find((v => v.id === parseInt(req.params.id)));
+        if(data)
+            return res.render("pages/cv.pug", { ...data });
+        else 
+            return res.redirect(`/?username=${res.locals.username}`);
+    }
 });
 app.get("/about", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "About";
     res.render("pages/about.pug");
+});
+app.get("/table", setLocals, setQueryString, redirectToStart, (req, res) => {
+    res.locals.pageTitle = "Class Table";
+    res.render("pages/table.pug");
 });
 app.use('/api/v1', apiRouter);
 app.use('/error', errorRouter);

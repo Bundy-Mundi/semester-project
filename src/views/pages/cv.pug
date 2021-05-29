@@ -1,8 +1,4 @@
 extends ../layout.pug
-include ../components/profileCard.pug
 
 block content
-    .cards.flex.flex-col.min-w-full(class="lg:flex-row")
-        each val in data
-            +profileCard(val.name, val.projects, val.bio, val.college, val.img_url)
-    
+    p.text-3xl #{name}
