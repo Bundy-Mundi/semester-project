@@ -54,7 +54,7 @@ app.get("/", setLocals, setQueryString, (req, res) => {
     }
     res.render(template, { data: DB });
 });
-app.get("/cv", setLocals, setQueryString, redirectToStart, (req, res) => {
+app.get("/cv/:id", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "CV";
     res.render("pages/cv.pug", { data: DB });
 });
