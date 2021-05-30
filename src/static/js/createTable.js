@@ -140,6 +140,7 @@ function buildTable(data) { //create function for table
         td2.appendChild(beginCols);
 
         // Styling
+        row.className = "hover:bg-gray-200";
         td1.className = "px-6 py-4 font-thin text-sm";
         td2.className = "px-6 py-4 font-thin text-sm";
         td3.className = "px-6 py-4 font-thin text-sm"; 
