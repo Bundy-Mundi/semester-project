@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        include ../partials/head.pug
+        title #{siteName} | #{pageTitle || "Unknown Page"}
+    body
+        main.h-screen.w-full.animate-fade-in
+            .greeting.h-64.w-full.flex.items-center.justify-center
+                h1.px-16.text-4xl.font-thin.break-words.text-center Please type any username to start
+            .w-full.h-full.flex.items-start.justify-center
+                form(method="GET" action="/" class="w-72 h-64 lg:h-72 lg:w-1/2 flex items-center justify-center bg-gray-200 shadow-lg rounded")
+                    .input_container.flex.flex-col.items-center.justify-center.w-full.px-6
+                        input(type="text" name="username" class="mb-4 h-16 w-full lg:w-1/2 px-2 text-center rounded shadow" placeholder="Username")
+                        button(type="submit" class="h-16 w-full lg:w-1/2 bg-gray-700 text-white border border-gray-600 hover:text-gray-900 hover:bg-transparent transition-all shadow rounded") OK
