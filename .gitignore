@@ -117,4 +117,6 @@ dist
 
 # Custom
 build/
-src/static/css/styles.css
+src/
+./tailwind.config.js
+node_modules
