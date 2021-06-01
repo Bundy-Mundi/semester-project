@@ -118,3 +118,4 @@ dist
 # Custom
 build/
 src/static/css/styles.css
+.DS_STORE
