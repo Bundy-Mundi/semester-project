@@ -1,4 +1,19 @@
 extends ../layout.pug
 
 block content
-    p.text-3xl #{name}
+    #cv-container.m-3.p-3.bg-gray-50.rounded.shadow.font-thin
+        .title-container.my-3.text-center
+            h1.text-3xl #{name}
+        .box.w-full.flex.justify-evenly
+            .contact-container.w-64.flex.flex-col.justify-center.text-sm
+                p #{contact.email}
+                p #{contact.address}
+                p #{contact.phone}
+            .image-container.my-3.w-64.flex.items-center.justify-center
+                img(src=`${img_url}`, alt="").h-36.w-36.object-cover.rounded-full
+            .website-container.w-64.flex.flex-col.justify-center.text-sm
+                each val in websites
+                    p #{val}
+        .contents-container.my-3.font-light
+            br
+            p #{profile}

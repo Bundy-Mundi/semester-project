@@ -7,4 +7,4 @@ block content
             h3.text-xl Check our CV
         .cards.py-12.flex.flex-col.min-w-full.justify-center(class="md:flex-row")
             each val in data
-                +profileCard(val.id, val.name, val.projects, val.bio, val.college, val.img_url)
+                +profileCard(val.id, val.name, val.projects, val.bio, val.current_college, val.img_url)
