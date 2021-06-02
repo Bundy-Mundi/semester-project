@@ -4,7 +4,7 @@ block content
     #cv-container.m-3.p-3.bg-gray-50.rounded.shadow.font-thin
         .title-container.my-3.text-center
             h1.text-3xl #{name}
-        .box.w-full.flex.justify-evenly
+        .box.w-full.flex.justify-evenly(class="invisible md:visible")
             .contact-container.w-64.flex.flex-col.justify-center.text-sm
                 p #{contact.email}
                 p #{contact.address}
@@ -13,7 +13,22 @@ block content
                 img(src=`${img_url}`, alt="").h-36.w-36.object-cover.rounded-full
             .website-container.w-64.flex.flex-col.justify-center.text-sm
                 each val in websites
-                    p #{val}
-        .contents-container.my-3.font-light
-            br
-            p #{profile}
+                    a(href=`${val}` class="") 
+                        p #{val}
+        .contents-container.w-full.flex.justify-center.items-start.mt-20.font-light
+            .__contents.w-full.h-full(class="grid md:grid-cols-2 grid-cols-none lg:w-2/3")
+                .education-container.text-right.mr-4.overflow-y-scroll.h-60
+                    h1.uppercase.font-semibold.text-xl.mb-6 Profile
+                    p #{profile}
+                .experience-container.text-left.ml-4.overflow-y-scroll.h-60
+                    h1.uppercase.font-semibold.text-xl.mb-6 Not decided
+                .education-container.text-right.mr-4.overflow-y-scroll.h-60
+                    h1.uppercase.font-semibold.text-xl.mb-6 Education
+                    ul.list-none 
+                        each val in education 
+                            li #{val}
+                .experience-container.text-left.ml-4.overflow-y-scroll.h-60
+                    h1.uppercase.font-semibold.text-xl.mb-6 Experience
+                    ul.list-none 
+                        each val in experience 
+                            li #{val}

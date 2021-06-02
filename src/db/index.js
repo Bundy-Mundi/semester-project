@@ -3,10 +3,10 @@ export const DB = [
         id: 1, 
         name:"Ben Kweon",
         projects:4,
-        bio:"I am a developer",
+        bio:"Hi I am Ben",
         current_college: "SMC",
         img_url:"/static/img/ben_profile.jpg",
-        profile: "",
+        profile: "I am a computer science major student deeply interested in networking area and backend engineering.",
         contact:{
             email: "bennie.ben095@gmail.com",
             address: "CA Los Angeles",
