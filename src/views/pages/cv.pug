@@ -17,18 +17,26 @@ block content
                         p #{val}
         .contents-container.w-full.flex.justify-center.items-start.mt-20.font-light
             .__contents.w-full.h-full(class="grid md:grid-cols-2 grid-cols-none lg:w-2/3")
-                .education-container.text-right.mr-4.overflow-y-scroll.h-60
-                    h1.uppercase.font-semibold.text-xl.mb-6 Profile
+                .profile-container.text-right.mr-4.overflow-y-scroll.h-60
+                    h1.uppercase.font-semibold.text-xl.my-10 Profile
                     p #{profile}
-                .experience-container.text-left.ml-4.overflow-y-scroll.h-60
-                    h1.uppercase.font-semibold.text-xl.mb-6 Not decided
+                .skill-container.text-left.ml-4.overflow-y-scroll.h-60
+                    h1.uppercase.font-semibold.text-xl.my-10 Skills
+                    ul.list-none
+                        each val in skills 
+                            li #{val.name}
+                                .progress-bar-container(class="h-3 relative max-w-xl rounded-full overflow-hidden") 
+                                    .progress-bar(class="w-full h-full bg-gray-200 absolute")
+                                    .gage(class="h-full bg-gray-600 absolute" style=`width: ${val.score}%;`)
                 .education-container.text-right.mr-4.overflow-y-scroll.h-60
-                    h1.uppercase.font-semibold.text-xl.mb-6 Education
+                    h1.uppercase.font-semibold.text-xl.my-10 Education
                     ul.list-none 
                         each val in education 
-                            li #{val}
+                            li.mb-4 
+                                p #{val}
                 .experience-container.text-left.ml-4.overflow-y-scroll.h-60
-                    h1.uppercase.font-semibold.text-xl.mb-6 Experience
+                    h1.uppercase.font-semibold.text-xl.my-10 Experience
                     ul.list-none 
                         each val in experience 
-                            li #{val}
+                            li.mb-4 
+                                p #{val}
