@@ -54,6 +54,14 @@ app.get("/", setLocals, setQueryString, (req, res) => {
     }
     res.render(template, { data: DB });
 });
+app.get("/about", setLocals, setQueryString, redirectToStart, (req, res) => {
+    res.locals.pageTitle = "About";
+    res.render("pages/about.pug");
+});
+app.get("/table", setLocals, setQueryString, redirectToStart, (req, res) => {
+    res.locals.pageTitle = "Class Table";
+    res.render("pages/table.pug");
+});
 app.get("/cv/:id", setLocals, setQueryString, redirectToStart, (req, res) => {
     res.locals.pageTitle = "CV";
     let data = {};
@@ -65,14 +73,6 @@ app.get("/cv/:id", setLocals, setQueryString, redirectToStart, (req, res) => {
         else 
             return res.redirect(`/?username=${res.locals.username}`);
     }
-});
-app.get("/about", setLocals, setQueryString, redirectToStart, (req, res) => {
-    res.locals.pageTitle = "About";
-    res.render("pages/about.pug");
-});
-app.get("/table", setLocals, setQueryString, redirectToStart, (req, res) => {
-    res.locals.pageTitle = "Class Table";
-    res.render("pages/table.pug");
 });
 app.use('/api/v1', apiRouter);
 app.use('/error', errorRouter);
