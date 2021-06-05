@@ -26,6 +26,10 @@ export const DB = [
                 score:65
             },
             {
+                name:"PHP",
+                score:75
+            },
+            {
                 name: "Python",
                 score:70
             },
@@ -75,11 +79,19 @@ export const DB = [
             {
                 name: "Python",
                 score:65
+            },
+            {
+                name: "C / C++",
+                score: 70
+            },
+            {
+                name: "HTML / CSS",
+                score: 80
             }
         ],
         experience:[
-            "Assist guest in improving shopping experience via processing items purchased, item returns and exchanges as well as online order pick-up, answering questions and assist other departments as needed",
-            "Provide additional guest assistance through ordering non-in-store items from store warehouse and notifying guest(s) once item is ready for pickup in-store."
+            "Currently working in customer service.",
+            "Worked at student recruitment."
         ],
         education: [
             "Santa Monica College"
